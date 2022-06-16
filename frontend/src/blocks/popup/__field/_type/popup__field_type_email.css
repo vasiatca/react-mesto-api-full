@@ -1,0 +1,14 @@
+.popup__field_type_email {
+    width: 100%;
+    background-color: #000000;
+    border: none;
+    border-bottom: 2px solid rgba(204, 204, 204, 1);
+    box-sizing: border-box;
+    padding-bottom: 13px;
+    margin-bottom: 30px;
+    color: #FFF;
+}
+
+.register__input::placeholder {
+    color:#cccccc;
+  }

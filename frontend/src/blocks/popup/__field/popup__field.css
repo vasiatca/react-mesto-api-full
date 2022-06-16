@@ -1,0 +1,20 @@
+.popup__field {
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+  width: 100%;
+  padding-bottom: 13px;
+  box-sizing: border-box;
+}
+
+.popup__field:first-child {
+  margin-top: 0;
+}
+
+.popup__field:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.4);
+}

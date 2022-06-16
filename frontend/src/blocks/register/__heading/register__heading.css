@@ -1,0 +1,13 @@
+.register__heading {
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #fff;
+    box-sizing: border-box;
+    padding-bottom: 50px;
+    margin: 0;
+}

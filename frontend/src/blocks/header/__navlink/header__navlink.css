@@ -1,0 +1,10 @@
+.header__navlink {
+	color: #fff;
+  text-decoration: none;
+  transition: opacity 0.7s ease;
+	cursor: pointer;
+}
+
+.header__navlink:hover {
+	opacity: 0.6;
+}

@@ -1,0 +1,4 @@
+.popup__field_type_error,
+.popup__field_type_error:focus {
+  border-color: red;
+}
