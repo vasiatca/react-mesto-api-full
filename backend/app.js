@@ -7,13 +7,14 @@ const { celebrate, Joi, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const errorsHandler = require('./middlewares/errorsHandler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
 const checkURL = require('./utils/checkURL');
 const limiter = require('./utils/limiter');
 
-const { port = 3000 } = process.env;
+const { port = 4000 } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
@@ -50,6 +51,8 @@ app.use((req, res, next) => {
   return next();
 });
 
+app.use(requestLogger);
+
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
@@ -72,6 +75,7 @@ app.use('/cards', auth, cardsRoutes);
 
 app.use('*', auth, (req, res, next) => next(new NotFoundError('Адрес не существует')));
 
+app.use(errorLogger);
 app.use(errors());
 app.use(errorsHandler);
 

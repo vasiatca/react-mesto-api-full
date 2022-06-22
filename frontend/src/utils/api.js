@@ -6,6 +6,13 @@ class Api {
     this._headers = options.headers;
   }
 
+  setHeaders(headers) {
+    this._headers = {
+      ...this._headers,
+      ...headers
+    }
+  }
+
   _getResponseData(res) {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
@@ -65,14 +72,14 @@ class Api {
   }
 
   like(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
 
   unlike(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
@@ -86,10 +93,12 @@ class Api {
   }
 }
 
+// const token = localStorage.getItem("token");
+
 const api = new Api({
   baseUrl: apiSettings.baseUrl,
   headers: {
-    authorization: apiSettings.token,
+    // authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   },
 });

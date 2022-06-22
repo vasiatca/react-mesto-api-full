@@ -43,7 +43,11 @@ const App = () => {
       .then(({ token }) => {
         localStorage.setItem("token", token);
 
-        AuthApi.getUser(token).then(({ data }) => {
+        api.setHeaders({
+          authorization: `Bearer ${token}`,
+        })
+
+        api.getUser().then(({ data }) => {
           setAuthUser(data);
           setLoggedIn(true);
 
@@ -55,7 +59,11 @@ const App = () => {
 
   const onRegister = ({ email, password }) =>
     AuthApi.register({ password, email })
-      .then((res) => setIsSuccess(true))
+      .then(() => {
+        setIsSuccess(true);
+
+        history.push("/sign-in");
+      })
       .catch((e) => setIsSuccess(false))
       .finally(() => setIsOpenTooltip(true));
 
@@ -90,7 +98,12 @@ const App = () => {
         const token = localStorage.getItem("token");
 
         if (token) {
-          const response = await AuthApi.getUser(token);
+          api.setHeaders({
+            authorization: `Bearer ${token}`,
+          })
+
+          const response = await api.getUser();
+
           setAuthUser(response ? response.data : {});
           setLoggedIn(true);
 

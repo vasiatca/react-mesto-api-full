@@ -34,20 +34,20 @@ class AuthApi {
             .then((res) => this._getResponseData(res));
     }
 
-    getUser(token) {
-        return fetch(`${this._baseUrl}/users/me`, {
-            method: "GET",
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((res) => this._getResponseData(res));
-    }
+    // getUser(token) {
+    //     return fetch(`${this._baseUrl}/users/me`, {
+    //         method: "GET",
+    //         headers: {
+    //             ...this._headers,
+    //             Authorization: `Bearer ${token}`,
+    //         },
+    //     })
+    //         .then((res) => this._getResponseData(res));
+    // }
 }
 
 const api = new AuthApi({
-    baseUrl: apiSettings.authUrl,
+    baseUrl: apiSettings.baseUrl,
     headers: {
         "Content-Type": "application/json",
     },

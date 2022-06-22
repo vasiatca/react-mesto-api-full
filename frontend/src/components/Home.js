@@ -27,11 +27,11 @@ const Home = ({ onCardLike, onCardDelete, onUpdateUser, onUpdateAvatar, onAddPla
 	};
 
 	const handleCardLike = (card) => {
-		const isLiked = card.likes.some((own) => own._id === currentUser._id);
+		const isLiked = card.likes.some((id) => id === currentUser._id);
 
 		onCardLike({ id: card._id, isLiked })
-			.then((newCard) => {
-				setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+			.then((response) => {
+				setCards((state) => state.map((c) => (c._id === card._id ? response.data : c)));
 			})
 			.catch(err => console.log(err));
 	};
@@ -43,11 +43,18 @@ const Home = ({ onCardLike, onCardDelete, onUpdateUser, onUpdateAvatar, onAddPla
 			})
 			.catch(err => console.log(err));
 	};
+	// const handleCardDelete = (card) => {
+	// 	onCardDelete({ id: card._id })
+	// 		.then(() => {
+	// 			setCards((state) => state.filter((c) => c._id !== card._id));
+	// 		})
+	// 		.catch(err => console.log(err));
+	// };
 
 	const handleUpdateUser = ({ name, about }) => {
 		onUpdateUser({ name, about })
-			.then((newUser) => {
-				setCurrentUser(newUser);
+			.then((response) => {
+				setCurrentUser(response.data);
 				closeAllPopups();
 			})
 			.catch(err => console.log(err));
@@ -55,8 +62,8 @@ const Home = ({ onCardLike, onCardDelete, onUpdateUser, onUpdateAvatar, onAddPla
 
 	const handleUpdateAvatar = ({ avatar }) => {
 		onUpdateAvatar({ avatar })
-			.then((newUser) => {
-				setCurrentUser(newUser);
+			.then((response) => {
+				setCurrentUser(response.data);
 				closeAllPopups();
 			})
 			.catch(err => console.log(err));
@@ -64,8 +71,8 @@ const Home = ({ onCardLike, onCardDelete, onUpdateUser, onUpdateAvatar, onAddPla
 
 	const handleAddPlaceCard = ({ name, link }) => {
 		onAddPlaceCard({ name, link })
-			.then((newCard) => {
-				setCards([newCard, ...cards]);
+			.then((response) => {
+				setCards([response.data, ...cards]);
 				closeAllPopups();
 			})
 			.catch(err => console.log(err));
@@ -74,11 +81,12 @@ const Home = ({ onCardLike, onCardDelete, onUpdateUser, onUpdateAvatar, onAddPla
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const userInfo = await getUser();
-				setCurrentUser(userInfo);
+				const response = await getUser();
+				setCurrentUser(response.data);
 
 				const cards = await getInitialCards();
-				setCards(cards);
+
+				setCards(cards.data);
 			} catch (err) {
 				console.log(err);
 			}
