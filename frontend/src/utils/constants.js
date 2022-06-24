@@ -1,5 +1,5 @@
 const apiSettings = {
-  baseUrl: '/api',
+  baseUrl: 'http://localhost:4000',
 };
 
 export {
