@@ -1,5 +1,5 @@
 const apiSettings = {
-  baseUrl: 'https://api.vasiatca.nomoredomains.xyz',
+  baseUrl: 'http://api.vasiatca.nomoredomains.xyz',
 };
 
 export {
