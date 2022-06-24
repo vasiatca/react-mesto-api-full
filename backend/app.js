@@ -17,6 +17,12 @@ const limiter = require('./utils/limiter');
 
 const { port = 4000 } = process.env;
 const app = express();
+const corsOptions = {
+  origin: 'http://vasiatca.nomoredomains.xyz',
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +36,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-app.use(cors());
 app.use(requestLogger);
 
 app.post('/signin', celebrate({
