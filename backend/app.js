@@ -8,6 +8,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const errorsHandler = require('./middlewares/errorsHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('./middlewares/cors');
 const NotFoundError = require('./errors/NotFoundError');
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
@@ -29,27 +30,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-const allowedCors = [
-  'http://localhost:3000',
-];
-
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const reqHeaders = req.headers['access-control-request-headers'];
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Headers', reqHeaders);
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    return res.end();
-  }
-
-  return next();
-});
+app.use(cors);
 
 app.use(requestLogger);
 
