@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const errorsHandler = require('./middlewares/errorsHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
 const NotFoundError = require('./errors/NotFoundError');
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
@@ -30,8 +30,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-app.use(cors);
-
+app.use(cors());
 app.use(requestLogger);
 
 app.post('/signin', celebrate({
