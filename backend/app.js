@@ -18,7 +18,7 @@ const limiter = require('./utils/limiter');
 const { port = 4000 } = process.env;
 const app = express();
 const corsOptions = {
-  origin: 'http://vasiatca.nomoredomains.xyz',
+  origin: 'https://vasiatca.nomoredomains.xyz',
   optionsSuccessStatus: 200,
   credentials: true,
 };
